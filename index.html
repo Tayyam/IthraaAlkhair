@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ithraa Aljod Form</title>
+     <!-- Favicon -->
+     <link rel="icon" href="https://i.ibb.co/WcLDqQJ/02.png" type="image/png">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- intl-tel-input CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
+
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            background-position: top top;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-image: url('https://i.ibb.co/dQnvrzg/ithraa-alkhair-logo-2.png');
+            padding-top: 200px; /* Extra padding to make space for the logo */
+            
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .iti {
+            width: 100%;
+        }
+        .invalid-feedback {
+            display: none;
+            color: red;
+        }
+
+        
+
+    </style>
+</head>
+<body>
+    
+    <div class="form-container">
+        <div class="alert alert-info" role="alert" id="formTitle" name="formTitle" style="text-align: center; font-weight: 500;">
+            Welcome to the Pilgrims' Data Survey Page! 🕋 <br>
+            Please fill out the required fields accurately to ensure your information is properly registered. This will greatly help us in customizing the most suitable packages and services for you to ensure a smooth pilgrimage experience. <br>
+            We appreciate your cooperation and attention to detail. ✅<br>
+            Thank you for your efforts, and we wish you a blessed pilgrimage! 😊
+        </div>
+        
+    <!-- Language Selection Dropdown -->
+    <div class="form-group">
+        <label for="language">Language:</label>
+        <select class="form-control" id="language" name="language" onchange="changeLanguage()">
+            <option value="en" selected>English</option>
+            <option value="ar">عربي</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+        </select>
+    </div>
+
+
+
+     
+        <form id="dataForm">
+            <!-- Name Field -->
+            <div class="form-group">
+                <label for="name">First and second name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+
+             <!-- Phone Number with Country Code -->
+             <div class="form-group">
+                <label for="phone">What's app Number:</label>
+                <input type="tel" class="form-control" id="phone" name="phone" required>
+                <div class="invalid-feedback" id="phoneError">Please enter a valid phone number.</div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email Address: (optional)</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" >
+            </div>
+
+             <!-- Nationality Dropdown (Populated from Google Sheet) -->
+             <div class="form-group">
+                <label for="Nationality">Nationality </label>
+                <select class="form-control" id="Nationality" name="Nationality" required>
+                    <option value="" disabled selected></option>
+                </select>
+            </div>
+
+            <!-- Country Dropdown (Populated from Google Sheet) -->
+            <div class="form-group">
+                <label for="country">Country of risidence :</label>
+                <select class="form-control" id="country" name="country" required>
+                    <option value="" disabled selected></option>
+                </select>
+            </div>
+
+              <!-- City Dropdown (Dependent on Country) -->
+              <div class="form-group">
+                <label for="city">City of risidence :</label>
+                <select class="form-control" id="city" name="city" required>
+                    <option value="" disabled selected></option>
+                </select>
+            </div>
+
+            <!-- Nearest airport  -->
+            <div class="form-group">
+                <label for="airport">what is your nearest airport (optional)</label>
+                <select class="form-control" id="airport" name="airport" >
+                    <option value="" disabled selected></option>
+                </select>
+            </div>
+
+             <!-- promote your flight Question -->
+             <div class="form-group">
+                <label for="changeFlight">Do you prefer to promote your flight (with addtional cost)</label>
+                <select class="form-control" id="changeFlight" name="changeFlight" required>
+                    <option value="" disabled selected>Choose an option</option>
+                    <option value="Yes" id="yes">Yes</option>
+                    <option value="No" id="no">No</option>
+                </select>
+            </div>
+
+             <!-- room Question -->
+             <div class="form-group">
+                <label for="RoomType">what is your room type ?</label>
+                <select class="form-control" id="RoomType" name="RoomType" required>
+                    <option value="" disabled selected>Choose an option</option>
+                    <option value="Double" id="doubleOption">Double (with extra cost)</option>
+                    <option value="Triple" id="TripleOption">Triple (with extra cost)</option>
+                    <option value="Quadruple" id="Quadoption">Quadruple</option>
+                </select>
+            </div>
+
+             <!-- Madinah  Question -->
+             <div class="form-group">
+                <label for="Madinahdate">which option do you prefer most ?</label>
+                <select class="form-control" id="Madinahdate" name="Madinahdate" required>
+                    <option value="" disabled selected>Choose an option</option>
+                    <option value="Yes" id="madinahAfter">Madinah before hajj</option>
+                    <option value="No" id="madinahBefore">Madinah After hajj</option>
+                </select>
+            </div>
+
+           
+
+            <!-- favorite package Dropdown -->
+            <div class="form-group">
+                <label for="packagetype">What is your favorite package type ?</label>
+                <select class="form-control" id="packagetype" name="packagetype" required>
+                    <option value="" disabled selected>Select your package</option>
+                    <option value="luxuary" id="luxuaryPackage">luxuary</option>
+                    <option value="luxuary shifting" id="luxuaryShiftingPackage">luxuary shifting</option>
+                    <option value="premium" id="premiumPackage">premium</option>
+                    <option value="premium shifting" id="premiumShiftingPackage">premium shifting</option>
+                    <option value="standard"  id="standardPackage">standard</option>
+                    <option value="standard shifting" id="standardShiftingPackage">standard shifting</option>
+                </select>
+            </div>
+            
+
+              <div class="alert alert-primary" role="alert" id="luxuaryStatment" name="luxuaryStatment" style="display: none;">
+                Average stay of 15 days in 5-star hotels in Makkah and Madinah
+              </div>
+
+                <div class="alert alert-primary" role="alert" id="luxuaryShiftingStatment" name="luxuaryShiftingStatment" style="display: none;">
+                    Stay in a hotel near the Jamarat during the main Hajj period and then transfer to a luxury hotel near the Haram after Hajj and includes a stay in Madinah with an average of 18 days
+                </div>
+
+                <div class="alert alert-primary" role="alert" id="premiumStatment" name="premiumStatment" style="display: none;">
+                    Stay in 4-star hotels in Madinah and Makkah with an average stay of 18 days
+                </div>
+
+                <div class="alert alert-primary" role="alert" id="premiumShiftingStatment" name="premiumShiftingStatment" style="display: none;">
+                    Stay in 4-star hotels in Madinah and Makkah with an average stay of 18 days with shifting
+                </div>
+
+                <div class="alert alert-primary" role="alert" id="standardStatment" name="standardStatment" style="display: none;">
+                    Stay in hotels in Makkah and Madinah that provide basic services and an average stay of 20 days
+                </div>
+
+                <div class="alert alert-primary" role="alert" id="standardShiftingStatment" name="standardShiftingStatment" style="display: none;">
+                    Stay in hotels in Makkah and Madinah that provide basic services and an average stay of 20 days with shifting
+                </div>
+                
+            <!-- Camp Dropdown (Hidden by default) -->
+<div class="form-group" id="camp-group" style="display: none;">
+    <label for="camp">What is your preferred camp?</label>
+    <select class="form-control" id="camp" name="camp">
+        <option value="" disabled selected>Choose an option</option>
+        <option value="Majar al kabash" id="majarAlKabash">Majar al kabash (Close to the Jamarat stoning area)</option>
+        <option value="Al mausuem" id="alMausuem">Al mausuem (far from the Jamarat stoning area)</option>
+    </select>
+</div>
+
+          <!-- transport or near Dropdown (Hidden by default) -->
+          <div class="transport-or-nearHaram-group" id="transport-or-nearHaram-group" style="display: none;">
+            <label for="transport_or_nearHaram">Do you prefer to stay in Mecca in a hotel close to the Haram with quality and basic services, or a hotel a few meters away from the Haram with high quality and providing shuttle service for prayers?</label>
+            <select class="form-control" id="transport-or-nearHaram" name="transport-or-nearHaram">
+                <option value="" disabled selected>Choose an option</option>
+                <option value="transport" id="transportOption">hotel providing shuttle service</option>
+                <option value="near haram" id="nearHaramOption">close to the Haram with quality and basic services</option>
+            </select>
+        </div>
+            <br>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+
+        <p id="responseMessage" class="text-center mt-3"></p>
+    </div>
+
+     <!-- Bootstrap Modal -->
+     <div class="modal fade" id="thankYouModal" tabindex="-1" role="dialog" aria-labelledby="thankYouModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="thankYouModalLabel">Thank You!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="thankYou">
+                    Thank you for submitting your information. We appreciate your time and effort
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for limit exceeded message -->
+<div class="modal fade" id="limitExceededModal" tabindex="-1" role="dialog" aria-labelledby="limitExceededModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="limitExceededModalLabel">Submission Limit Reached</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          You have reached the maximum number of submissions for today. Please try again tomorrow, or enter the reset key to reset your limit.
+          <form id="resetLimitForm">
+            <div class="form-group">
+              <label for="resetKey">Enter Reset Key</label>
+              <input type="text" class="form-control" id="resetKey" placeholder="Enter reset key">
+            </div>
+            <small class="form-text text-muted"></small>
+          </form>
+          <div id="resetError" class="text-danger" style="display:none;">Incorrect key. Please try again.</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="resetButton">Reset Limit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal for Error Alert -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="errorModalLabel">Form Incomplete</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="errorMessage">
+          Please complete all required fields and correct the mistakes before submitting the form.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Bootstrap JS, jQuery, and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- intl-tel-input JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+    <!-- Include Select2 CSS and JS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        const phoneInputField = document.querySelector("#phone");
+        const phoneError = document.getElementById("phoneError");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            preferredCountries: ["us", "uk", "sa", "eg"],
+            separateDialCode: true, // Makes the country code visible and separated
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js", // To enable validation
+        });
+
+        const form = document.getElementById('dataForm');
+
+        let dataFetched = false; // To check if data is already fetched
+        let cachedData = []; // To store the fetched data
+
+        // Fetch all required data from the static CSV file when the page loads
+        async function fetchData() {
+            if (!dataFetched) {
+                try {
+                    // Show loading state for dropdowns
+                    setLoadingState('country', true);
+                    setLoadingState('Nationality', true);
+
+                    const response = await fetch('database-static.csv'); // Fetch the CSV file
+                    const csvText = await response.text(); // Get CSV text
+                    cachedData = parseCSV(csvText); // Parse CSV text into a JavaScript array of objects
+                    dataFetched = true; // Mark data as fetched
+
+                    // Populate countries
+                    const uniqueCountries = Array.from(new Set(cachedData.map(item => item.Country))).sort();
+                    populateDropdown(uniqueCountries, 'country', 'Select your country');
+
+                    // Populate nationalities
+                    const uniqueNationalities = Array.from(new Set(cachedData.map(item => item.Nationality))).sort();
+                    populateDropdown(uniqueNationalities, 'Nationality', 'Select your nationality');
+
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                } finally {
+                    // Remove loading state after fetch is done
+                    setLoadingState('country', false);
+                    setLoadingState('Nationality', false);
+                }
+            }
+        }
+
+        // Function to parse CSV data, handle commas inside quotes, and clean up unwanted quotes
+        function parseCSV(csvText) {
+            const rows = csvText.trim().split('\n');
+            const headers = rows[0].split(',').map(header => header.trim().replace(/^"|"$/g, ''));
+            const data = rows.slice(1).map(row => {
+                const values = splitCSVRow(row); // Use the helper function to correctly split row
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header] = values[index].trim().replace(/^"|"$/g, ''); // Remove leading/trailing quotes
+                });
+                return obj;
+            });
+            return data;
+        }
+
+        // Helper function to correctly split a CSV row while handling commas inside quotes
+        function splitCSVRow(row) {
+            const result = [];
+            let inQuotes = false;
+            let value = '';
+
+            for (let char of row) {
+                if (char === '"') {
+                    inQuotes = !inQuotes; // Toggle the inQuotes flag when encountering a double quote
+                } else if (char === ',' && !inQuotes) {
+                    // If we encounter a comma and we're not inside quotes, push the value to result
+                    result.push(value);
+                    value = ''; // Reset value for the next field
+                } else {
+                    value += char; // Add the character to the current value
+                }
+            }
+            result.push(value); // Push the last value
+
+            return result;
+        }
+
+        // Function to populate dropdowns with options and initialize Select2
+        function populateDropdown(dataArray, dropdownId, placeholder) {
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.innerHTML = `<option value="" disabled selected>${placeholder}</option>`; // Add placeholder
+
+            dataArray.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item;
+                option.textContent = item;
+                dropdown.appendChild(option);
+            });
+
+            // Initialize Select2 search functionality for all dropdowns
+            $(`#${dropdownId}`).select2({
+                placeholder: placeholder,
+                allowClear: true
+            });
+        }
+
+        // Function to set loading state on dropdowns
+        function setLoadingState(dropdownId, isLoading) {
+            const dropdown = document.getElementById(dropdownId);
+            if (isLoading) {
+                dropdown.innerHTML = `<option value="" disabled selected>Loading...</option>`; // Display loading text
+                dropdown.disabled = true; // Disable dropdown
+            } else {
+                dropdown.disabled = false; // Enable dropdown when data is fetched
+            }
+        }
+
+        // Event listener for country dropdown using Select2 change event
+        $('#country').on('change', function() {
+            const selectedCountry = $(this).val();
+
+            // Filter continent based on the selected country
+            const continent = cachedData.find(item => item.Country === selectedCountry).Continent;
+
+            // Filter cities based on the selected country
+            const filteredCities = cachedData.filter(item => item.Country === selectedCountry).map(item => item.City).sort();
+            populateDropdown(filteredCities, 'city', 'Select your city');
+
+            // Filter airports based on the selected continent
+            const filteredAirports = cachedData.filter(item => item.Continent === continent).map(item => item.airport).sort();
+            populateDropdown(filteredAirports, 'airport', 'Select nearest airport');
+        });
+
+        // Automatically fetch data when the page loads
+        window.addEventListener('load', async function() {
+            await fetchData(); // Fetch data immediately on page load
+        });
+
+        // Maximum number of requests allowed
+const MAX_REQUESTS = 20;
+const RESET_TIME = 24 * 60 * 60 * 1000; // Reset after 24 hours
+const RESET_KEY = '1234'; // Key to reset the limit
+
+// Check request count and prevent spamming
+function checkRequestLimit() {
+    const requestData = JSON.parse(localStorage.getItem('requestData')) || { count: 0, lastSubmission: Date.now() };
+
+    const currentTime = Date.now();
+
+    // If it's been more than RESET_TIME since the last submission, reset the count
+    if (currentTime - requestData.lastSubmission > RESET_TIME) {
+        requestData.count = 0;
+        requestData.lastSubmission = currentTime;
+        localStorage.setItem('requestData', JSON.stringify(requestData));
+    }
+
+    // Check if user has reached the limit
+    if (requestData.count >= MAX_REQUESTS) {
+        $('#limitExceededModal').modal('show'); // Show the modal if the limit is reached
+        return false; // Prevent form submission
+    }
+
+    // If not at the limit, allow the form to be submitted and update the request data
+    requestData.count += 1;
+    requestData.lastSubmission = currentTime;
+    localStorage.setItem('requestData', JSON.stringify(requestData));
+
+    return true; // Allow form submission
+}
+
+// Handle reset logic
+document.getElementById('resetButton').addEventListener('click', function() {
+    const enteredKey = document.getElementById('resetKey').value;
+
+    if (enteredKey === RESET_KEY) {
+        // Reset the request count
+        const requestData = { count: 0, lastSubmission: Date.now() };
+        localStorage.setItem('requestData', JSON.stringify(requestData));
+
+        // Close the modal and clear the input
+        $('#limitExceededModal').modal('hide');
+        document.getElementById('resetKey').value = '';
+        document.getElementById('resetError').style.display = 'none';
+        
+        alert('Submission limit has been reset.');
+    } else {
+        // Show error if key is incorrect
+        document.getElementById('resetError').style.display = 'block';
+    }
+});
+
+async function getUserIP() {
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        return data.ip;
+    } catch (error) {
+        console.error('Error fetching IP address:', error);
+        return null;
+    }
+}
+
+
+// Generate a human-readable fingerprint based on screen resolution and browser info
+function getSimpleFingerprint() {
+    // Get the user's screen resolution
+    const screenResolution = `${window.screen.width}x${window.screen.height}`;
+
+    // Get the user's browser information from userAgent
+    const browserInfo = getBrowserInfo();
+
+    // Combine the resolution and browser information to create a descriptive fingerprint
+    const fingerprint = `Browser: ${browserInfo.name} ${browserInfo.version}, Screen: ${screenResolution}`;
+
+    // Return the human-readable fingerprint
+    return fingerprint;
+}
+
+// Helper function to extract browser name and version from the user agent
+function getBrowserInfo() {
+    const userAgent = navigator.userAgent;
+    let browserName, browserVersion;
+
+    if (userAgent.indexOf("Firefox") > -1) {
+        browserName = "Firefox";
+        browserVersion = userAgent.match(/Firefox\/([0-9]+)\./)[1];
+    } else if (userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Edg") === -1) {
+        browserName = "Chrome";
+        browserVersion = userAgent.match(/Chrome\/([0-9]+)\./)[1];
+    } else if (userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") === -1) {
+        browserName = "Safari";
+        browserVersion = userAgent.match(/Version\/([0-9]+)\./)[1];
+    } else if (userAgent.indexOf("Edg") > -1) {
+        browserName = "Edge";
+        browserVersion = userAgent.match(/Edg\/([0-9]+)\./)[1];
+    } else {
+        browserName = "Unknown Browser";
+        browserVersion = "Unknown Version";
+    }
+
+    return { name: browserName, version: browserVersion };
+}
+
+// Fetch or generate the simple fingerprint and store it in localStorage
+function getFingerprint() {
+    // First, check if the fingerprint is already stored in localStorage
+    let storedFingerprint = localStorage.getItem('humanReadableFingerprint');
+    if (storedFingerprint) {
+        return storedFingerprint; // Return the stored fingerprint to make it static
+    }
+
+    // Generate a new fingerprint if not found in localStorage
+    const newFingerprint = getSimpleFingerprint();
+
+    // Store the new fingerprint in localStorage
+    localStorage.setItem('humanReadableFingerprint', newFingerprint);
+
+    return newFingerprint;
+}
+
+
+
+// Function to format the date and time in dd/mm/yyyy hh:mm:ss format
+function getFormattedDate() {
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+}
+// Function to auto-submit visitor data on page load
+async function submitVisitorData() {
+    try {
+        const userIP = await getUserIP();
+        const fingerprint = await getFingerprint();
+        const submissionDate = getFormattedDate();
+
+        // Try fetching country and city based on IP using ipapi.co
+        let geoData;
+        try {
+            const geoResponse = await fetch(`https://ipapi.co/${userIP}/json/`);
+            if (geoResponse.status === 429) {
+                throw new Error('Rate limit exceeded for ipapi.co');
+            }
+            geoData = await geoResponse.json();
+        } catch (error) {
+            console.warn('ipapi.co failed, switching to ipgeolocation.io:', error);
+
+            // Fallback to ipgeolocation.io
+            const fallbackResponse = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=05666d0a3ce747f8b2d93b5e84405672&ip=${userIP}`);
+            geoData = await fallbackResponse.json();
+        }
+
+        const country = geoData.country_name || 'Unknown';
+        const city = geoData.city || 'Unknown';
+
+        // Send visitor data to SheetDB
+        const response = await fetch('https://sheetdb.io/api/v1/3vl4762vjs3em?sheet=sheet2', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                data: [
+                    {
+                        "IP": userIP,
+                        "Fingerprint": fingerprint,
+                        "Country": country,
+                        "City": city,
+                        "Date": submissionDate
+                    }
+                ]
+            })
+        });
+
+        if (!response.ok) {
+            console.error("Error submitting visitor data.");
+        }
+    } catch (error) {
+        console.error("There was an error processing visitor data submission:", error);
+    }
+}
+
+// Automatically submit visitor data when the page loads
+window.addEventListener('load', submitVisitorData);
+
+form.addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent the form from refreshing the page
+
+    // Check if request limit is reached
+    if (!checkRequestLimit()) {
+        return; // Stop submission if the limit is reached
+    }
+
+    // Validation variables
+    let isValid = true;
+    let errorMessage = '';
+
+    // Get form data
+    const formData = new FormData(form);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const packagetype = formData.get('packagetype');
+    const country = formData.get('country');
+    const nationality = formData.get('Nationality');
+    const city = formData.get('city');
+    const phone = phoneInput.getNumber();
+    const isValidPhone = phoneInput.isValidNumber();
+    const changeFlight = formData.get('changeFlight');
+    const Madinahdate = formData.get('Madinahdate');
+    const airport = formData.get('airport');
+    const RoomType = formData.get('RoomType');
+    const transportOrNearHaram = formData.get('transport-or-nearHaram');
+    const camp = formData.get('camp');
+
+    // Add formatted date to the form data
+    const submissionDate = getFormattedDate();
+
+    // Validate phone number
+    if (!isValidPhone) {
+        phoneError.style.display = "block"; // Show phone validation error
+        isValid = false;
+        errorMessage += 'Please enter a valid phone number.<br>';
+    } else {
+        phoneError.style.display = "none"; // Hide phone validation error
+    }
+
+    // Validate other required fields
+    const requiredFields = form.querySelectorAll('[required]');
+    requiredFields.forEach(field => {
+        if (!field.value) {
+            isValid = false;
+            field.classList.add('is-invalid'); // Highlight the incomplete field
+            errorMessage += `The field "${field.previousElementSibling.textContent}" is required.<br>`;
+        } else {
+            field.classList.remove('is-invalid'); // Remove highlight if valid
+        }
+    });
+
+    // If form is invalid, show the error modal and vibrate
+    if (!isValid) {
+        navigator.vibrate(200); // Trigger device vibration
+        document.getElementById('errorMessage').innerHTML = errorMessage; // Set custom error message
+        $('#errorModal').modal('show'); // Show error modal
+        return; // Stop further execution
+    }
+
+    // If all fields are valid, proceed with form submission
+    try {
+        // Fetch user's IP address
+        const userIP = await getUserIP();
+
+        // Fetch the fingerprint
+        const fp = await FingerprintJS.load();
+        const result = await fp.get();
+        const fingerprint = result.visitorId;
+
+        // Send form data to SheetDB, including user's IP, fingerprint, and submission date
+        const response = await fetch('https://sheetdb.io/api/v1/3vl4762vjs3em', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                data: [
+                    {
+                        "Name": name,
+                        "Email": email,
+                        "packagetype": packagetype,
+                        "Country": country,
+                        "City": city,
+                        "Phone": phone,
+                        "changeFlight": changeFlight,
+                        "Madinahdate": Madinahdate,
+                        "airport": airport,
+                        "Nationality": nationality,
+                        "RoomType": RoomType,
+                        "transportOrNearHaram": transportOrNearHaram,
+                        "camp": camp,
+                        "IP": userIP,
+                        "Fingerprint": fingerprint,
+                        "Date": submissionDate
+                    }
+                ]
+            })
+        });
+
+        if (response.ok) {
+            window.location.href = 'thank-you.html'; // Redirect to "Thank You" page
+        } else {
+            document.getElementById('responseMessage').textContent = "There was an error submitting your data.";
+        }
+    } catch (error) {
+        document.getElementById('responseMessage').textContent = "There was an error processing your request.";
+    }
+});
+
+
+
+        // Define translations for each language
+const translations = {
+    en: {
+        name: "First and second name",
+        phone: "What's app Number",
+        email: "Email Address",
+        nationality: "Nationality",
+        country: "Country of residence",
+        city: "City of residence",
+        airport: "Nearest airport",
+        changeFlight: "Do you prefer to be able to change your flight?",
+        madinahOption: "Which option do you prefer most?",
+        packageType: "What is your favorite package type?",
+        RoomType: "what is your room type ?",
+        camp : "what is your favorite camp ?",
+        transport_or_nearHaram : "Do you prefer to stay in Mecca in a hotel close to the Haram with quality and basic services, or a hotel a few meters away from the Haram with high quality and providing shuttle service for prayers?",
+        luxuaryStatment: "Average stay of 15 days in 5-star hotels in Makkah and Madinah",
+        luxuaryShiftingStatment: "Stay in a hotel near the Jamarat during the main Hajj period and then transfer to a luxury hotel near the Haram after Hajj and includes a stay in Madinah with an average of 18 days",
+        premiumStatment: "Stay in 4-star hotels in Madinah and Makkah with an average stay of 18 days",
+        premiumShiftingStatment: "Stay in 4-star hotels in Madinah and Makkah with an average stay of 18 days with shifting",
+        standardStatment: "Stay in hotels in Makkah and Madinah that provide basic services and an average stay of 20 days",
+        standardShiftingStatment: "Stay in hotels in Makkah and Madinah that provide basic services and an average stay of 20 days with shifting",
+        doubleOption: "Double (with extra cost)",
+        TripleOption: "Triple (with extra cost)",
+        Quadoption: "Quadruple",
+        majarAlKabash: "Majar al kabash (Close to the Jamarat stoning area)",
+        alMausuem: "Al mausuem (far from the Jamarat stoning area)",
+        transportOption: "hotel providing shuttle service",
+        nearHaramOption: "close to the Haram with quality and basic services",
+        luxuaryPackage: "luxuary",
+        luxuaryShiftingPackage: "luxuary shifting",
+        premiumPackage: "premium",
+        premiumShiftingPackage: "premium shifting",
+        standardPackage: "standard",
+        standardShiftingPackage: "standard shifting",
+        yes : "Yes",
+        no : "No",
+        formTitle: "Welcome to the Pilgrims' Data Survey Page! 🕋 <br>Please fill out the required fields accurately to ensure your information is properly registered. This will greatly help us in customizing the most suitable packages and services for you to ensure a smooth pilgrimage experience. <br>We appreciate your cooperation and attention to detail. ✅<br>Thank you for your efforts, and we wish you a blessed pilgrimage! 😊",
+        madinahBefore : "Madinah before hajj",
+        madinahAfter : "Madinah After hajj",
+        thankYou : "Thank you for submitting your information. We appreciate your time and effort",
+        submit: "Submit"
+
+    },
+    ar: {
+        name: "الاسم الأول والثاني",
+        phone: "رقم الواتس اب",
+        email: "عنوان البريد الإلكتروني",
+        nationality: "الجنسية",
+        country: "بلد الإقامة",
+        city: "مدينة الإقامة",
+        airport: "أقرب مطار",
+        changeFlight: "هل تفضل أن تكون قادرًا على تغيير رحلتك؟",
+        madinahOption: "ما الخيار الذي تفضله أكثر؟",
+        packageType: "ما نوع الباقة المفضل لديك؟",
+        RoomType: "ما هو نوع غرفتك؟",
+        camp : "ما هو نوع المخيم الذي تفضله؟",
+        transport_or_nearHaram : "هل تفضل البقاء في مكة في فندق قريب من الحرم بجودة وخدمات أساسية، أم فندق على بعد أمتار من الحرم بجودة عالية ويوفر خدمة النقل للصلوات؟",
+        luxuaryStatment: "الإقامة المتوسطة لمدة 15 يومًا في فنادق 5 نجوم في مكة والمدينة",
+        luxuaryShiftingStatment: "الإقامة في فندق قريب من الجمرات خلال فترة الحج الرئيسية ثم الانتقال إلى فندق فاخر بالقرب من الحرم بعد الحج ويشمل الإقامة في المدينة بمتوسط 18 يومًا",
+        premiumStatment: "الإقامة في فنادق 4 نجوم في المدينة ومكة بمتوسط إقامة 18 يومًا",
+        premiumShiftingStatment: "الإقامة في فنادق 4 نجوم في المدينة ومكة بمتوسط إقامة 18 يومًا مع الشيفتنج",
+        standardStatment: "الإقامة في فنادق في مكة والمدينة تقدم خدمات أساسية ومتوسط الإقامة 20 يومًا",
+        standardShiftingStatment: "الإقامة في فنادق في مكة والمدينة تقدم خدمات أساسية ومتوسط الإقامة 20 يومًا مع الشيفتنج",
+        doubleOption: "ثنائي (بتكلفة إضافية)",
+        TripleOption: "ثلاثي (بتكلفة إضافية)",
+        Quadoption: "رباعي",
+        majarAlKabash: "مجر الكبش (قريب من منطقة رمي الجمرات)",
+        alMausuem: "المعيصم (بعيد عن منطقة رمي الجمرات)",
+        transportOption: "فندق يوفر خدمة النقل",
+        nearHaramOption: "قريب من الحرم بجودة وخدمات أساسية",
+        luxuaryPackage: "فاخر",
+        luxuaryShiftingPackage: "فاخر انتقالي",
+        premiumPackage: "مميز",
+        premiumShiftingPackage: "مميز انتقالي",
+        standardPackage: "اقتصادي",
+        standardShiftingPackage: "اقتصادي انتقالي",
+        yes : "نعم",
+        no : "لا",
+        formTitle: "مرحبًا بكم في صفحة استبيان بيانات الحجاج! 🕋 <br>يرجى ملء الحقول المطلوبة بدقة لضمان تسجيل معلوماتك بشكل صحيح. سيساعدنا هذا كثيرًا في تخصيص أفضل الباقات والخدمات لضمان تجربة حج سلسة. <br>نقدر تعاونك واهتمامك بالتفاصيل. ✅<br>شكرًا لجهودك، ونتمنى لك حجًا مباركًا! 😊",
+        madinahBefore : "المدينة قبل الحج",
+        madinahAfter : "المدينة بعد الحج",
+        thankYou : "شكرا لك على تقديم معلوماتك. نحن نقدر وقتك وجهدك",
+        submit: "إرسال"
+    },
+    fr: {
+        name: "Nom et prénom",
+        phone: "Numéro WhatsApp",
+        email: "Adresse e-mail",
+        nationality: "Nationalité",
+        country: "Pays de résidence",
+        city: "Ville de résidence",
+        airport: "Aéroport le plus proche",
+        changeFlight: "Préférez-vous pouvoir changer votre vol?",
+        madinahOption: "Quelle option préférez-vous le plus?",
+        packageType: "Quel est votre type de forfait préféré?",
+        RoomType: "Quel est votre type de chambre?",
+        camp : "Quel est votre type de camp préféré?",
+        transport_or_nearHaram : "Préférez-vous séjourner à La Mecque dans un hôtel proche du Haram avec des services de qualité et de base, ou un hôtel à quelques mètres du Haram avec une haute qualité et fournissant un service de navette pour les prières?",
+        luxuaryStatment: "Séjour moyen de 15 jours dans des hôtels 5 étoiles à La Mecque et à Médine",
+        luxuaryShiftingStatment: "Séjour dans un hôtel proche des Jamarat pendant la période principale du Hajj puis transfert dans un hôtel de luxe proche du Haram après le Hajj et comprend un séjour à Médine avec une moyenne de 18 jours",
+        premiumStatment: "Séjour dans des hôtels 4 étoiles à Médine et à La Mecque avec une moyenne de 18 jours",
+        premiumShiftingStatment: "Séjour dans des hôtels 4 étoiles à Médine et à La Mecque avec une moyenne de 18 jours avec changement",
+        standardStatment: "Séjour dans des hôtels à La Mecque et à Médine qui fournissent des services de base et une moyenne de 20 jours",
+        standardShiftingStatment: "Séjour dans des hôtels à La Mecque et à Médine qui fournissent des services de base et une moyenne de 20 jours avec changement",
+        doubleOption: "Double (avec frais supplémentaires)",
+        TripleOption: "Triple (avec frais supplémentaires)",
+        Quadoption: "Quadruple",
+        majarAlKabash: "Majar al kabash (Près de la zone de lapidation des J",
+        alMausuem: "Al mausuem (loin de la zone de lapidation des J",
+        transportOption: "hôtel fournissant un service de navette",
+        nearHaramOption: "près du Haram avec qualité et services de base",
+        luxuaryPackage: "de luxe",
+        luxuaryShiftingPackage: "de luxe en déplacement",
+        premiumPackage: "prime",
+        premiumShiftingPackage: "prime en déplacement",
+        standardPackage: "standard",
+        standardShiftingPackage: "standard en déplacement",
+        yes : "Oui",
+        no : "Non",
+        formTitle: "Bienvenue sur la page de l'enquête de données des pèlerins ! 🕋 <br>Veuillez remplir les champs obligatoires avec précision afin de garantir que vos informations soient correctement enregistrées. Cela nous aidera grandement à personnaliser les forfaits et services les plus adaptés pour vous assurer une expérience de pèlerinage fluide. <br>Nous apprécions votre coopération et votre attention aux détails. ✅<br>Merci pour vos efforts, et nous vous souhaitons un pèlerinage béni ! 😊",
+        madinahBefore : "Madinah avant le Hajj",
+        madinahAfter : "Madinah après le Hajj",
+        thankYou : "Merci d'avoir soumis vos informations. Nous apprécions votre temps et vos efforts",
+        submit: "Soumettre"
+    },
+    de: {
+        name: "Vor- und Nachname",
+        phone: "WhatsApp-Nummer",
+        email: "E-Mail-Adresse",
+        nationality: "Staatsangehörigkeit",
+        country: "Wohnsitzland",
+        city: "Wohnstadt",
+        airport: "Nächstgelegener Flughafen",
+        changeFlight: "Bevorzugen Sie es, Ihren Flug ändern zu können?",
+        madinahOption: "Welche Option bevorzugen Sie am meisten?",
+        packageType: "Was ist Ihr bevorzugter Pakettyp?",
+        RoomType: "Was ist Ihr Zimmertyp?",
+        camp : "Was ist Ihr bevorzugter Camp?",
+        transport_or_nearHaram : "Möchten Sie in Mekka in einem Hotel in der Nähe des Haram mit Qualität und grundlegenden Dienst leistungen übernachten oder in einem Hotel wenige Meter vom Haram entfernt mit hoher Qualität und Shuttle-Service für Gebete?",
+        luxuaryStatment: "Durchschnittlicher Aufenthalt von 15 Tagen in 5-Sterne-Hotels in Mekka und Medina",
+        luxuaryShiftingStatment: "Aufenthalt in einem Hotel in der Nähe der Jamarat während der Haupt-Hajj-Periode und dann Transfer in ein Luxushotel in der Nähe des Haram nach dem Hajj und beinhaltet einen Aufenthalt in Medina mit durchschnittlich 18 Tagen",
+        premiumStatment: "Aufenthalt in 4-Sterne-Hotels in Medina und Mekka mit durchschnittlich 18 Tagen",
+        premiumShiftingStatment: "Aufenthalt in 4-Sterne-Hotels in Medina und Mekka mit durchschnittlich 18 Tagen mit Wechsel",
+        standardStatment: "Aufenthalt in Hotels in Mekka und Medina, die grundlegende Dienstleistungen bieten und durchschnittlich 20 Tage dauern",
+        standardShiftingStatment: "Aufenthalt in Hotels in Mekka und Medina, die grundlegende Dienstleistungen bieten und durchschnittlich 20 Tage dauern mit Wechsel",
+        doubleOption: "Doppelzimmer (mit zusätzlichen Kosten)",
+        TripleOption: "Dreibettzimmer (mit zusätzlichen Kosten)",
+        Quadoption: "Vierbettzimmer",
+        majarAlKabash: "Majar al kabash (In der Nähe des Jamarat-Steinigungsbereichs)",
+        alMausuem: "Al mausuem (weit vom Jamarat-Steinigungsbereich entfernt)",
+        transportOption: "Hotel mit Shuttle-Service",
+        nearHaramOption: "in der Nähe des Haram mit Qualität und grundlegenden Dienstleistungen",
+        luxuaryPackage: "Luxus",
+        luxuaryShiftingPackage: "Luxusverschiebung",
+        premiumPackage: "Premium",
+        premiumShiftingPackage: "Premiumverschiebung",
+        standardPackage: "Standard",
+        standardShiftingPackage: "Standardverschiebung",
+        yes : "Ja",
+        no : "Nein",
+        formTitle: "Willkommen auf der Seite zur Datenerhebung für Pilger! 🕋 <br>Bitte füllen Sie die erforderlichen Felder sorgfältig aus, um sicherzustellen, dass Ihre Informationen korrekt registriert werden. Dies wird uns sehr dabei helfen, die passendsten Pakete und Dienstleistungen für Sie zu personalisieren und Ihnen eine reibungslose Pilgerreise zu gewährleisten. <br>Wir schätzen Ihre Kooperation und Aufmerksamkeit für Details. ✅<br>Vielen Dank für Ihre Bemühungen, und wir wünschen Ihnen eine gesegnete Pilgerreise! 😊",
+        madinahBefore : "Madinah vor Hajj",
+        madinahAfter : "Madinah nach Hajj",
+        thankYou : "Vielen Dank für die Übermittlung Ihrer Informationen. Wir schätzen Ihre Zeit und Mühe",
+        submit: "Einreichen"
+    }
+};
+
+// Function to change the language
+function changeLanguage() {
+    const selectedLang = document.getElementById("language").value;
+    document.querySelector('label[for="name"]').textContent = translations[selectedLang].name;
+    document.querySelector('label[for="phone"]').textContent = translations[selectedLang].phone;
+    document.querySelector('label[for="email"]').textContent = translations[selectedLang].email;
+    document.querySelector('label[for="Nationality"]').textContent = translations[selectedLang].nationality;
+    document.querySelector('label[for="country"]').textContent = translations[selectedLang].country;
+    document.querySelector('label[for="city"]').textContent = translations[selectedLang].city;
+    document.querySelector('label[for="airport"]').textContent = translations[selectedLang].airport;
+    document.querySelector('label[for="changeFlight"]').textContent = translations[selectedLang].changeFlight;
+    document.querySelector('label[for="Madinahdate"]').textContent = translations[selectedLang].madinahOption;
+    document.querySelector('label[for="packagetype"]').textContent = translations[selectedLang].packageType;
+    document.querySelector('label[for="RoomType"]').textContent = translations[selectedLang].RoomType;
+    document.querySelector('label[for="camp"]').textContent = translations[selectedLang].camp;
+    document.querySelector('label[for="transport_or_nearHaram"]').textContent = translations[selectedLang].transport_or_nearHaram;
+    document.querySelector('button[type="submit"]').textContent = translations[selectedLang].submit;
+    document.getElementById('luxuaryStatment').textContent = translations[selectedLang].luxuaryStatment;
+    document.getElementById('luxuaryShiftingStatment').textContent = translations[selectedLang].luxuaryShiftingStatment;
+    document.getElementById('premiumStatment').textContent = translations[selectedLang].premiumStatment;
+    document.getElementById('premiumShiftingStatment').textContent = translations[selectedLang].premiumShiftingStatment;
+    document.getElementById('standardStatment').textContent = translations[selectedLang].standardStatment;
+    document.getElementById('standardShiftingStatment').textContent = translations[selectedLang].standardShiftingStatment;
+    document.getElementById('doubleOption').textContent = translations[selectedLang].doubleOption;
+    document.getElementById('TripleOption').textContent = translations[selectedLang].TripleOption;
+    document.getElementById('Quadoption').textContent = translations[selectedLang].Quadoption;
+    document.getElementById('majarAlKabash').textContent = translations[selectedLang].majarAlKabash;
+    document.getElementById('alMausuem').textContent = translations[selectedLang].alMausuem;
+    document.getElementById('transportOption').textContent = translations[selectedLang].transportOption;
+    document.getElementById('nearHaramOption').textContent = translations[selectedLang].nearHaramOption;
+    document.getElementById('luxuaryPackage').textContent = translations[selectedLang].luxuaryPackage;
+    document.getElementById('luxuaryShiftingPackage').textContent = translations[selectedLang].luxuaryShiftingPackage;
+    document.getElementById('premiumPackage').textContent = translations[selectedLang].premiumPackage;
+    document.getElementById('premiumShiftingPackage').textContent = translations[selectedLang].premiumShiftingPackage;
+    document.getElementById('standardPackage').textContent = translations[selectedLang].standardPackage;
+    document.getElementById('standardShiftingPackage').textContent = translations[selectedLang].standardShiftingPackage;
+    document.getElementById('yes').textContent = translations[selectedLang].yes;
+    document.getElementById('no').textContent = translations[selectedLang].no;
+    document.getElementById('formTitle').innerHTML = translations[selectedLang].formTitle;
+    document.getElementById('madinahAfter').textContent = translations[selectedLang].madinahAfter;
+    document.getElementById('madinahBefore').textContent = translations[selectedLang].madinahBefore;
+    document.getElementById('thankYou').textContent = translations[selectedLang].thankYou;
+
+
+
+}
+
+// Function to show or hide the camp dropdown based on package selection
+document.getElementById('packagetype').addEventListener('change', function() {
+    var selectedPackage = this.value;
+    var campGroup = document.getElementById('camp-group');
+    
+    if (selectedPackage === 'luxuary' || selectedPackage === 'luxuary shifting') {
+        campGroup.style.display = 'block'; // Show the camp dropdown
+        document.getElementById('camp').required = true;
+    } else {
+        campGroup.style.display = 'none'; // Hide the camp dropdown
+        document.getElementById('camp').value = ''; // Reset the camp dropdown value
+        document.getElementById('camp').required = false;
+    }
+});
+
+// Function to show or hide the transport or near dropdown based on package selection
+document.getElementById('packagetype').addEventListener('change', function() {
+    var selectedPackage = this.value;
+    var transportOrNearGroup = document.getElementById('transport-or-nearHaram-group');
+    
+    if (selectedPackage === 'standard' || selectedPackage === 'standard shifting') {
+        transportOrNearGroup.style.display = 'block'; // Show the transport or near dropdown
+        document.getElementById('transport-or-nearHaram').required = true;
+    } else {
+        transportOrNearGroup.style.display = 'none'; // Hide the transport or near dropdown
+        document.getElementById('transport-or-nearHaram').required = false;
+        document.getElementById('transport-or-nearHaram').value = ''; // Reset the transport or near dropdown value
+    }
+});
+
+// Function to show or hide the the statment based on package selection
+document.getElementById('packagetype').addEventListener('change', function() {
+    var selectedPackage = this.value;
+    var luxuaryStatment = document.getElementById('luxuaryStatment');
+    var luxuaryShiftingStatment = document.getElementById('luxuaryShiftingStatment');
+    var premiumStatment = document.getElementById('premiumStatment');
+    var premiumShiftingStatment = document.getElementById('premiumShiftingStatment');
+    var standardStatment = document.getElementById('standardStatment');
+    var standardShiftingStatment = document.getElementById('standardShiftingStatment');
+
+    if (selectedPackage === 'luxuary') {
+        luxuaryStatment.style.display = 'block'; // Show the statment
+    } else {
+        luxuaryStatment.style.display = 'none'; // Hide the statment
+    }
+
+    if (selectedPackage === 'luxuary shifting') {
+        luxuaryShiftingStatment.style.display = 'block'; // Show the statment
+    } else {
+        luxuaryShiftingStatment.style.display = 'none'; // Hide the statment
+    }
+
+    if (selectedPackage === 'premium') {
+        premiumStatment.style.display = 'block'; // Show the statment
+    } else {
+        premiumStatment.style.display = 'none'; // Hide the statment
+    }
+
+    if (selectedPackage === 'premium shifting') {
+        premiumShiftingStatment.style.display = 'block'; // Show the statment
+    } else {
+        premiumShiftingStatment.style.display = 'none'; // Hide the statment
+    }
+
+    if (selectedPackage === 'standard') {
+        standardStatment.style.display = 'block'; // Show the statment
+    } else {
+        standardStatment.style.display = 'none'; // Hide the statment
+    }
+
+    if (selectedPackage === 'standard shifting') {
+        standardShiftingStatment.style.display = 'block'; // Show the statment
+    } else {
+        standardShiftingStatment.style.display = 'none'; // Hide the statment
+    }
+
+});
+
+
+
+    </script>
+</body>
+</html>
